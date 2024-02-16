@@ -16,6 +16,14 @@ const networkConfig = {
         mintFee: "10000000000000000", // 0.01 ETH
         subscriptionId: "7829", // add your ID here!
     },
+    80001: {
+        name: "mumbai",
+        vrfCoordinatorV2: "0x7a1BaC17Ccc5b313516C5E16fb24f7659aA5ebed",
+        gasLane: "0x4b09e658ed251bcafeebbc69400383d49f344ace09b9576fe248bb02c003fe9f",
+        callbackGasLimit: "500000", // 500,000 gas
+        mintFee: "10000000000000000", // 0.01 ETH
+        subscriptionId: "7238", // add your ID here!
+    },
 }
 
 const DECIMALS = "18"

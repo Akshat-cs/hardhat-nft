@@ -1,20 +1,17 @@
 require("@nomiclabs/hardhat-waffle")
 require("hardhat-gas-reporter")
-require("@nomiclabs/hardhat-etherscan")
+require("@nomicfoundation/hardhat-verify")
 require("dotenv").config()
 require("solidity-coverage")
 require("hardhat-deploy")
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
-/**
- * @type import('hardhat/config').HardhatUserConfig
- */
 
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || ""
 const SEPOLIA_RPC_URL =
     process.env.SEPOLIA_RPC_URL || "https://eth-sepolia.g.alchemy.com/v2/YOUR-API-KEY"
 const PRIVATE_KEY = process.env.PRIVATE_KEY || ""
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ""
+const POLYGONSCAN_API_KEY = process.env.POLYGONSCAN_API_KEY || "key"
+const MUMBAI_RPC_URL = process.env.MUMBAI_RPC_URL || "https://eth-mumbai"
 
 module.exports = {
     defaultNetwork: "hardhat",
@@ -35,6 +32,14 @@ module.exports = {
             chainId: 1,
             blockConfirmations: 6,
         },
+        mumbai: {
+            chainId: 80001,
+            blockConfirmations: 6,
+            url: MUMBAI_RPC_URL,
+            accounts: [PRIVATE_KEY],
+            gas: 2100000,
+            gasPrice: 8000000000,
+        },
     },
     solidity: {
         compilers: [
@@ -47,7 +52,17 @@ module.exports = {
         ],
     },
     etherscan: {
-        apiKey: ETHERSCAN_API_KEY,
+        apiKey: {
+            //ethereum
+            mainnet: ETHERSCAN_API_KEY,
+            ropsten: ETHERSCAN_API_KEY,
+            rinkeby: ETHERSCAN_API_KEY,
+            goerli: ETHERSCAN_API_KEY,
+            kovan: ETHERSCAN_API_KEY,
+            //polygon
+            polygon: POLYGONSCAN_API_KEY,
+            polygonMumbai: POLYGONSCAN_API_KEY,
+        },
     },
     gasReporter: {
         enabled: false,

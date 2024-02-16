@@ -16,9 +16,6 @@ let tokenUris = [
 //     "ipfs://QmUPjADFGEKmfohdTaNcWhp7VGk26h5jXDA7v3VtTnTLcW",
 // ]
 
-
-
-
 const metadataTemplate = {
     name: "",
     description: "",
@@ -52,6 +49,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         // Our mock makes it so we don't actually have to worry about sending fund
         await vrfCoordinatorV2Mock.fundSubscription(subscriptionId, FUND_AMOUNT)
     } else {
+        console.log(`networkConfig[chainId]: ${networkConfig[chainId]}`)
         vrfCoordinatorV2Address = networkConfig[chainId].vrfCoordinatorV2
         subscriptionId = networkConfig[chainId].subscriptionId
     }
@@ -77,7 +75,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     }
 
     // Verify the deployment
-    if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+    if (!developmentChains.includes(network.name) && process.env.POLYGONSCAN_API_KEY) {
         log("Verifying...")
         await verify(randomIpfsNft.address, arguments)
     }
